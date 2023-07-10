@@ -57,6 +57,7 @@ exports.capturePayment = async (req, res) => {
         currency,
         receipt: Math.random(Date.now()).toString(),
         notes:{
+            // yaha pe jaan bucj ke bheja jaa raha because taki verify signature ke time pe use kar sake isko 
             courseId: course_id,
             userId,
         }
@@ -96,13 +97,19 @@ exports.verifySignature = async (req, res) => {
 // hamare yah aisa hi hota hai 
     const signature = req.headers["x-razorpay-signature"];
 // hmac->hashed based method authentication code 
+
     const shasum =  crypto.createHmac("sha256", webhookSecret);
+    // converting hmac to string 
     shasum.update(JSON.stringify(req.body));
+
     const digest = shasum.digest("hex");
 
     if(signature === digest) {
         console.log("Payment is Authorised");
-
+        // just jaan lo niche wala for now some confusion (notes me pass kiya tha courseid and userid in line 59 because it is coming form 
+        // razorpay website not from front end 
+        // yahi ke liye taki payment ke baad ka action ( see notes ) kar sake which is user ke coursed wale array me object id of course 
+        // and second thinng course ke student enrolled me user id of student )
         const {courseId, userId} = req.body.payload.payment.entity.notes;
 
         try{
