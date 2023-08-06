@@ -43,6 +43,7 @@ exports.createRating = async (req, res) => {
         //update course with this rating/review
         const updatedCourseDetails = await Course.findByIdAndUpdate({_id:courseId},
                                     {
+                                        // $push to update something 
                                         $push: {
                                             ratingAndReviews: ratingReview._id,
                                         }
@@ -73,7 +74,7 @@ exports.getAverageRating = async (req, res) => {
             //get course ID
             const courseId = req.body.courseId;
             //calculate avg rating
-
+//.aggrigate vip //mbc -6 45:00
             const result = await RatingAndReview.aggregate([
                 {
                     $match:{
@@ -118,6 +119,8 @@ exports.getAverageRating = async (req, res) => {
 //getAllRatingAndReviews
 
 exports.getAllRating = async (req, res) => {
+    //differnet things ko nikalne ka tarika using popolate path:"user",select:"firstName lastName email image", isse first name 
+    ///last name etc nikal sakte hai 
     try{
             const allReviews = await RatingAndReview.find({})
                                     .sort({rating: "desc"})
