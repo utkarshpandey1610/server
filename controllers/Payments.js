@@ -68,6 +68,7 @@ exports.capturePayment = async (req, res) => {
         const paymentResponse = await instance.orders.create(options);
         console.log(paymentResponse);
         //return response
+        // below is given on razonr pay website what yo need todo 
         return res.status(200).json({
             success:true,
             courseName:course.courseName,
@@ -92,9 +93,11 @@ exports.capturePayment = async (req, res) => {
 //verify Signature of Razorpay and Server
 
 exports.verifySignature = async (req, res) => {
+    // backend wala webhook sectret 
     const webhookSecret = "12345678";
 // razer pay ne javb webhook hit kiya hoga to headers["x-razorpay-signature"] "headers " me response send hota hai 
 // hamare yah aisa hi hota hai 
+//razor pay se aa hau 
     const signature = req.headers["x-razorpay-signature"];
 // hmac->hashed based method authentication code 
 
