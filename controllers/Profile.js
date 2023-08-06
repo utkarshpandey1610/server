@@ -20,11 +20,13 @@ exports.updateProfile = async (req, res) => {
             const profileId = userDetails.additionalDetails;
             const profileDetails = await Profile.findById(profileId);
 
-            //update profile
+            //update profile(yaha pehle se bana hua tha bas update kiya wo dhyan dena jaha naya dala hai )
             profileDetails.dateOfBirth = dateOfBirth;
             profileDetails.about = about;
             profileDetails.gender = gender;
             profileDetails.contactNumber = contactNumber;
+            // below code se jo profile details me jo changes kiye hai wo save ho jayega because ye pehle se bana pada hai bas 
+            //update kar rahe hai 
             await profileDetails.save();
             //return response
             return res.status(200).json({
