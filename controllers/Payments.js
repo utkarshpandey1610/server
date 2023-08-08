@@ -105,6 +105,7 @@ exports.verifySignature = async (req, res) => {
     const shasum =  crypto.createHmac("sha256", webhookSecret);
      // converting hmac to string 
     shasum.update(JSON.stringify(req.body));
+    
     const digest = shasum.digest("hex");
 
     if(signature === digest) {
