@@ -1,7 +1,7 @@
 
 //below package is to send mail 
 const nodemailer = require("nodemailer");
-
+//post middelware 
 const mailSender = async (email, title, body) => {
     try{
         // to send mail we need to make transporter using nodemailer
@@ -18,7 +18,7 @@ const mailSender = async (email, title, body) => {
 
 
             let info = await transporter.sendMail({
-                from: 'StudyNotion || CodeHelp - by Babbar',
+                from: 'UTKARSH PANDEY ',
                 to:`${email}`,
                 subject: `${title}`,
                 html: `${body}`,
