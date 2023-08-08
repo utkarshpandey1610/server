@@ -2,11 +2,13 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const User = require("../models/User");
 
+
 //auth
 // all the middle ware are defined in routes 
 exports.auth = async (req, res, next) => {
     try{
-        //extract token
+       
+         //extract token
         //It tries to extract the token from different sources in the following order:
 //a. req.cookies.token: It checks if the token is present in the cookies of the request.
 //b. req.body.token: It checks if the token is present in the body of the request.
@@ -14,8 +16,7 @@ exports.auth = async (req, res, next) => {
 //the request. The code assumes that the token is provided in the format "Bearer {token}", so it removes the "Bearer " prefix to extract the actual token.
 //This code snippet allows flexibility in where the token can be provided in the request. 
 //It checks multiple sources to ensure that the token can be extracted from at least one of them.
-      
-const token = req.cookies.token 
+        const token = req.cookies.token 
                         || req.body.token 
                         || req.header("Authorisation").replace("Bearer ", "");
 
@@ -27,7 +28,7 @@ const token = req.cookies.token
             });
         }
 
-        //verify the token
+         //verify the token
         // uses verify mehtod for verification 
         //decode it by using secret key 
         // we verify token using JWT_SECRET
@@ -35,7 +36,7 @@ const token = req.cookies.token
             const decode =  jwt.verify(token, process.env.JWT_SECRET);
             console.log(decode);
             req.user = decode;
-            //Finally, the decoded payload is assigned to the req.user property, 
+             //Finally, the decoded payload is assigned to the req.user property, 
             //making it available for further processing or authentication within the request object.
         }
         catch(err) {
@@ -45,7 +46,7 @@ const token = req.cookies.token
                 message:'token is invalid',
             });
         }
-        //now we will go to next() middleware ??
+         //now we will go to next() middleware ??
         next();
     }
     catch(error) {  
@@ -59,9 +60,7 @@ const token = req.cookies.token
 //isStudent
 exports.isStudent = async (req, res, next) => {
     //  use payload that you made in Auth.js 
-    
  try{
-    //
         if(req.user.accountType !== "Student") {
             return res.status(401).json({
                 success:false,
@@ -101,7 +100,8 @@ exports.isInstructor = async (req, res, next) => {
 
 //isAdmin
 exports.isAdmin = async (req, res, next) => {
-    try{
+    try{    
+           console.log("Printing AccountType ", req.user.accountType);
            if(req.user.accountType !== "Admin") {
                return res.status(401).json({
                    success:false,
