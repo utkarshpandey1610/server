@@ -21,6 +21,7 @@ database.connect();
 //middlewares
 app.use(express.json());
 app.use(cookieParser());
+//cors -> so that backend entertain frontend requests 
 app.use(
 	cors({
 		origin:"http://localhost:3000",
