@@ -151,7 +151,7 @@ exports.showAllCourses = async (req, res) => {
 
     }
     catch(error) {
-        console.log(error);
+        console.log(error); 
         return res.status(500).json({
             success:false,
             message:'Cannot Fetch course data',
