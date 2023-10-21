@@ -8,7 +8,7 @@ const User = require("../models/User");
 exports.auth = async (req, res, next) => {
     try{
        
-         //extract token
+         //extract token adding extra token 
         //It tries to extract the token from different sources in the following order:
 //a. req.cookies.token: It checks if the token is present in the cookies of the request.
 //b. req.body.token: It checks if the token is present in the body of the request.
